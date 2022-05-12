@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useReducer } from 'react'
+import React, { createContext, ReactNode, useEffect, useReducer } from 'react'
 
 const nameRegex = /^[A-Z ]+$/i
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
@@ -14,7 +14,7 @@ export interface FieldProps {
   helperText?: string
 }
 type FieldValidationSchema = Record<string, FieldProps>
-const initialValues: FieldValidationSchema = {
+export const initialValues: FieldValidationSchema = {
   name: {
     label: 'Name',
     placeholder: 'Enter your name',
@@ -97,7 +97,7 @@ interface ProviderProps {
   children: ReactNode
 }
 
-type State = {
+export type State = {
   activeStep: number
   hasError: boolean
   hasSubmited: boolean
@@ -175,14 +175,26 @@ function reducer(state: State, action: Action): State {
   }
 }
 
+function initializer(storageKey: string) {
+  const item = window.localStorage.getItem(storageKey)
+  return item
+    ? JSON.parse(item)
+    : {
+        activeStep: 0,
+        hasError: false,
+        hasSubmited: false,
+        formValues: { ...initialValues },
+      }
+}
 export const StepsProvider = ({ children }: ProviderProps) => {
   const [{ activeStep, hasError, hasSubmited, formValues }, dispatch] =
-    useReducer(reducer, {
-      activeStep: 0,
-      hasError: false,
-      hasSubmited: false,
-      formValues: initialValues,
-    })
+    useReducer(reducer, initializer('localSurvey'))
+
+  // TODO: This will cause bug
+  // useEffect(() => {
+  //   const mem = { activeStep, hasError, hasSubmited, formValues }
+  //   localStorage.setItem('localSurvey', JSON.stringify(mem))
+  // }, [activeStep, hasError, hasSubmited, formValues])
 
   const handleNext = () => {
     dispatch({ type: 'next' })

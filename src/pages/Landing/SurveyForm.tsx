@@ -112,6 +112,11 @@ export const ThirdStepForm: React.FC = () => {
     handleCheckboxChange(event, selectedColors)
   }
 
+  const isChecked = (value: string) => {
+    const set = favoriteColors.checkedboxes || new Set()
+    return set.has(value)
+  }
+
   return (
     <React.Fragment>
       <Grid container spacing={2} direction='column'>
@@ -130,7 +135,7 @@ export const ThirdStepForm: React.FC = () => {
                 key={color}
                 control={
                   <Checkbox
-                    checked={favoriteColors.checkedboxes?.has(color)}
+                    checked={isChecked(color)}
                     onChange={(event) => handleColorSelect(event, color)}
                     name='favoriteColors'
                     color='primary'
