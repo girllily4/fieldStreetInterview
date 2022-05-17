@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react'
-import { SurveyContext } from './SurveyContext'
-import TextField from '../../components/TextField/TextField'
+import { SurveyContext } from '../SurveyContext'
+import TextField from '../../../components/TextField/TextField'
 import {
   Grid,
   FormControlLabel,

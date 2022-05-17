@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import './LandingPage.css'
 
-import SurveyButton from '../../components/Button/Button'
-import SurveyModal from '../../components/Modal/SurveyModal'
-import Stepper from './LandingStepper'
-import icon from '../../assets/yieldstreetIcon.png'
-import { SurveyContext } from './SurveyContext'
+import SurveyButton from '../../../components/Button/Button'
+import SurveyModal from '../../../components/Modal/SurveyModal'
+import LandingStepper from '../LandingStepper/LandingStepper'
+import icon from '../../../assets/yieldstreetIcon.png'
+import { SurveyContext } from '../SurveyContext'
 
 const LandingPage: React.FC = () => {
   const [open, setOpen] = React.useState(false)
@@ -34,7 +34,7 @@ const LandingPage: React.FC = () => {
         Start Survey
       </SurveyButton>
       <SurveyModal open={open} onClose={handleClose}>
-        <Stepper />
+        <LandingStepper />
       </SurveyModal>
     </div>
   )

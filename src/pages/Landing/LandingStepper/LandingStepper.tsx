@@ -1,5 +1,5 @@
 import React, { ReactNode, useContext } from 'react'
-import MuiStepper from '@mui/material/Stepper'
+import MuiStepper, { StepperProps } from '@mui/material/Stepper'
 import {
   Box,
   Button,
@@ -13,8 +13,8 @@ import {
   SecondStepForm,
   ThirdStepForm,
   SurveySummaryTable,
-} from './SurveyForm'
-import { SurveyContext } from './SurveyContext'
+} from '../SurveyForm/SurveyForm'
+import { SurveyContext } from '../SurveyContext'
 
 type StepType = { label: string; comment?: string; content?: ReactNode }
 const steps: StepType[] = [
@@ -35,7 +35,7 @@ const steps: StepType[] = [
     content: <SurveySummaryTable />,
   },
 ]
-const Stepper = () => {
+const LandingStepper: React.FC<StepperProps> = (props) => {
   const { activeStep, hasError, handleNext, handleBack, handleSubmit } =
     useContext(SurveyContext)
 
@@ -44,7 +44,11 @@ const Stepper = () => {
   }, [activeStep])
 
   return (
-    <MuiStepper activeStep={activeStep} orientation='vertical'>
+    <MuiStepper
+      {...props}
+      activeStep={props.activeStep || activeStep}
+      orientation='vertical'
+    >
       {steps.map((step) => (
         <Step key={step.label}>
           <StepLabel
@@ -88,4 +92,4 @@ const Stepper = () => {
   )
 }
 
-export default Stepper
+export default LandingStepper

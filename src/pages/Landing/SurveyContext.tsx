@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useEffect, useReducer } from 'react'
+import React, { createContext, ReactNode, useReducer } from 'react'
 
 const nameRegex = /^[A-Z ]+$/i
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
@@ -186,7 +186,7 @@ function initializer(storageKey: string) {
         formValues: { ...initialValues },
       }
 }
-export const StepsProvider = ({ children }: ProviderProps) => {
+export const StepsProvider: React.FC<ProviderProps> = ({ children }) => {
   const [{ activeStep, hasError, hasSubmited, formValues }, dispatch] =
     useReducer(reducer, initializer('localSurvey'))
 
